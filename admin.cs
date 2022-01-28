@@ -30,16 +30,26 @@ namespace MyVorm
             };
             btn.MouseClick += Btn_MouseClick;
             this.Controls.Add(btn);
-            Button filmiAdd = new Button()
-            {
-                Size = new Size(75, 75),
-                Location = new Point(220,300),
-                Text = "Lisa film"
-            };
-            btn.MouseClick += Btn_MouseClick;
-            this.Controls.Add(filmiAdd);
-            filmiAdd.MouseClick += FilmiAdd_MouseClick;
+           
 
+
+        }
+
+        private void Del_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (id != 0)
+            {
+                command = new SqlCommand("DELETE Movie WHERE ID_movie=@ID_movie", connect_to_DB);
+                connect_to_DB.Open();
+                command.Parameters.AddWithValue("@ID_movie", id);
+                command.ExecuteNonQuery();
+                connect_to_DB.Close();
+                MessageBox.Show("Andmed on kustutatud");
+            }
+            else
+            {
+                MessageBox.Show("Viga kustutamisega");
+            }
         }
 
         private void FilmiAdd_MouseClick(object sender, MouseEventArgs e)
@@ -90,23 +100,40 @@ namespace MyVorm
                 Size=new System.Drawing.Size(180,250),
                 Location = new System.Drawing.Point(300, 150)
             };
+            Button filmiAdd = new Button()
+            {
+                Size = new Size(75, 75),
+                Location = new Point(220, 300),
+                Text = "Lisa film"
+            };
+            Button del = new Button()
+            {
+                Size = new Size(75, 75),
+                Location = new Point(100, 30),
+                Text = "Kustuta"
+            };
             connect_to_DB.Open();
             DataTable tabel = new DataTable();
             dataGridView = new DataGridView();
             dataGridView.RowHeaderMouseClick += DataGridView_RowHeaderMouseClick1;
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT ID_movie,name,date,genre FROM [dbo].[Movie]", connect_KinoDB);
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT ID_movie,name,date,genre, image FROM [dbo].[Movie]", connect_KinoDB);
             adapter.Fill(tabel);
             dataGridView.DataSource = tabel;
             dataGridView.Location = new System.Drawing.Point(150, 400);
             dataGridView.Size = new System.Drawing.Size(400, 200);
             this.Controls.Add(dataGridView);
-           
-            
+            this.Controls.Add(filmiAdd);
+            filmiAdd.MouseClick += FilmiAdd_MouseClick;
+
             this.Controls.Add(name);
             this.Controls.Add(date);
             this.Controls.Add(genre);
             this.Controls.Add(image);
             this.Controls.Add(posters);
+
+            this.Controls.Add(del);
+            del.MouseClick += Del_MouseClick;
+
             connect_to_DB.Close();
         }
 
@@ -117,7 +144,7 @@ namespace MyVorm
             date.Text = dataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
             genre.Text = dataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
             image.Text = dataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
-            posters.Image = Image.FromFile(@"C:..\..\image\" + dataGridView.Rows[e.RowIndex].Cells[4].Value.ToString());
+            //posters.Image = Image.FromFile(@"C:..\..\image\" + dataGridView.Rows[e.RowIndex].Cells[4].Value.ToString());
             //string v = dataGridView.Rows[e.RowIndex].Cells[5].Value.ToString();
             //comboBox1.SelectedIndex = Int32.Parse(v) - 1;
         }

@@ -113,6 +113,7 @@
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
     <Content Include="film.txt" />
+    <Content Include="image\index.png" />
     <Content Include="image\jm.jpg" />
     <Content Include="image\kinozal.jpg" />
     <Content Include="image\kos.jpg" />

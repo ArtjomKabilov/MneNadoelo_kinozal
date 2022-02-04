@@ -53,7 +53,6 @@ namespace MyVorm
                 {
                     btn_tabel = new Button
                     {
-                        Text = String.Format($"{r + 1}{k + 1}"),
                         Name = String.Format($"{r+1}{k+1}"),
                         Dock = DockStyle.Fill,
                         BackColor = Color.LightGreen
@@ -125,11 +124,11 @@ namespace MyVorm
                 string text = "Kinoteatr: „Planet“\n ";
                 foreach (var item in piletid)
                 {
-                    text += "Film:" + cinema.nameMovie.Text + "\n " + "Rida: " + item.Rida + "Koht: " + item.Koht + "\n";
+                    text += "Film:"+ cinema.FilmName +"\n " + "Rida: " + item.Rida + "Koht: " + item.Koht + "\n";
                     command = new SqlCommand("INSERT INTO Piletid(rida,koht,film) VALUES(@rida,@koht,@film)", connect_to_DB);
                     command.Parameters.AddWithValue("@rida", item.Rida);
                     command.Parameters.AddWithValue("@koht", item.Koht);
-                    command.Parameters.AddWithValue("@film", cinema.nameMovie.Text);
+                    command.Parameters.AddWithValue("@film", cinema.FilmName);
                     command.ExecuteNonQuery();
                 }
                 connect_to_DB.Close();
@@ -141,7 +140,7 @@ namespace MyVorm
                     message.From = new MailAddress(pocta);
                     message.Subject = "Ostetud piletid";
                     message.Body = text;
-                    string email = "programmeeriminetthk@gmail.com";
+                    string email = "programmeeriminetthk2@gmail.com";
                     string password = "2.kuursus tarpv20";
                     SmtpClient client = new SmtpClient("smtp.gmail.com")
                     {

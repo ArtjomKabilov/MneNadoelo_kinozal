@@ -10,5 +10,7 @@
             Rida = rida;
             Koht = koht;
         }
+
+        public string FilmName { get; internal set; }
     }
 }

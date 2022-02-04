@@ -21,7 +21,7 @@ namespace MyVorm
             }*/
 
             MailMessage message = new MailMessage();
-            string email = "programmeeriminetthk@gmail.com";
+            string email = "programmeeriminetthk2@gmail.com";
             string password = "2.kuursus";
             SmtpClient client = new SmtpClient("smtp.gmail.com");
             client.Port = 587;
